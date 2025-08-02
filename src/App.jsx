@@ -10,6 +10,12 @@ const Typewriter = ({ words, speed = 150, delay = 1000 }) => {
 
   useEffect(() => {
     const handleTyping = () => {
+      // Added check to prevent TypeError if words is undefined or empty
+      if (!words || words.length === 0) {
+        setCurrentText('');
+        return;
+      }
+
       const fullWord = words[currentWordIndex];
       const updatedText = isDeleting
         ? fullWord.substring(0, currentText.length - 1)
@@ -58,7 +64,7 @@ const useScrollReveal = (options = {}) => {
     // Cleanup observer on component unmount
     return () => {
       if (elementRef.current) {
-        observer.unobserve(elementRef.current);
+        observer.unobserve(elementRef.current); // Corrected from element.current to elementRef.current
       }
     };
   }, [options]); // Re-run effect if options change
@@ -345,13 +351,19 @@ const App = () => {
                 Hello, I'm Anirudh Vartak
               </p>
               <h1 className={`text-5xl md:text-7xl font-extrabold ${heroTextClass} leading-tight mb-4 animate-fadeInUp delay-100`}>
-                A Fullstack <br />
+                Full Stack <br /> {/* "Full Stack" is now static */}
                 <span className={`gradient-text`}> {/* Applied gradient-text class here */}
-                  <Typewriter words={["Web Developer"]} speed={150} delay={1500} />
+                  <Typewriter words={["Product Developer"]} speed={150} delay={1500} /> {/* "Product Developer" has typing effect */}
                 </span>
               </h1>
               <p className={`text-lg md:text-xl ${heroSubTextClass} mb-8 max-w-xl animate-fadeInUp delay-200`}>
-                Innovative problem solver with a passion for creating secure & scalable solutions. Leveraging cutting edge technologies to craft intuitive user experiences and robust backend systems. Let's build the future of tech together!
+                Passionate about building scalable, secure, and intelligent digital systems.
+                As a Full Stack Product Developer, I craft everything from robust backend architectures
+                to dynamic frontends — with a strong focus on AI-powered automation and purposeful product design.
+                I turn complex challenges into clean, impactful solutions.
+              </p>
+              <p className={`text-lg md:text-xl ${heroSubTextClass} mb-8 max-w-xl animate-fadeInUp delay-300`}>
+                Let’s build smarter tech — together.
               </p>
               <div className="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4 animate-fadeInUp delay-300">
                 <a
@@ -402,22 +414,22 @@ const App = () => {
               {/* Stat Card 1: Years of Experience */}
               <div className={`${statsCardBgClass} p-8 rounded-lg shadow-xl border ${statsCardBorderClass} text-center transition-all duration-300 transform hover:scale-105 ${isStatsVisible ? 'animate-fadeInLeft delay-100' : 'opacity-0'}`}>
                 <Award size={60} className={`mx-auto mb-4 ${statsNumberClass}`} />
-                <h3 className={`text-5xl font-extrabold mb-2 ${statsNumberClass}`}>2+</h3>
+                <h3 className={`text-5xl font-extrabold mb-2 ${statsNumberClass}`}>2.7+</h3>
                 <p className={`text-xl font-semibold ${statsTextClass}`}>Years of Experience</p>
               </div>
 
-              {/* Stat Card 2: Awards */}
+              {/* Stat Card 2: Career Awards & Recognitions */}
               <div className={`${statsCardBgClass} p-8 rounded-lg shadow-xl border ${statsCardBorderClass} text-center transition-all duration-300 transform hover:scale-105 ${isStatsVisible ? 'animate-fadeInUp delay-200' : 'opacity-0'}`}>
-                <Award size={60} className={`mx-auto mb-4 ${statsNumberClass}`} /> {/* Changed icon to Award */}
-                <h3 className={`text-5xl font-extrabold mb-2 ${statsNumberClass}`}>2</h3> {/* Changed number to 2 */}
-                <p className={`text-xl font-semibold ${statsTextClass}`}>Awards in uKnowva</p> {/* Changed text */}
+                <Award size={60} className={`mx-auto mb-4 ${statsNumberClass}`} />
+                <h3 className={`text-5xl font-extrabold mb-2 ${statsNumberClass}`}>3</h3>
+                <p className={`text-xl font-semibold ${statsTextClass}`}>Career Awards & Recognitions</p>
               </div>
 
-              {/* Stat Card 3: Completed Projects */}
+              {/* Stat Card 3: Projects Successfully Completed */}
               <div className={`${statsCardBgClass} p-8 rounded-lg shadow-xl border ${statsCardBorderClass} text-center transition-all duration-300 transform hover:scale-105 ${isStatsVisible ? 'animate-fadeInRight delay-300' : 'opacity-0'}`}>
                 <CheckCircle size={60} className={`mx-auto mb-4 ${statsNumberClass}`} />
-                <h3 className={`text-5xl font-extrabold mb-2 ${statsNumberClass}`}>40+</h3> {/* Changed number to 40+ */}
-                <p className={`text-xl font-semibold ${statsTextClass}`}>Completed Projects</p>
+                <h3 className={`text-5xl font-extrabold mb-2 ${statsNumberClass}`}>40+</h3>
+                <p className={`text-xl font-semibold ${statsTextClass}`}>Projects Successfully Completed</p>
               </div>
             </div>
           </div>
@@ -430,13 +442,13 @@ const App = () => {
             <div className="flex flex-col md:flex-row items-center md:space-x-8">
               <div className={`text-lg leading-relaxed text-center md:text-left text-gray-300`}>
                 <p className="mb-4">
-                  Hello! I'm Anirudh Haresh Vartak, a dedicated and results-driven UI/UX Developer with over 2 years of experience, excelling in both front-end and back-end development. I'm currently working at <strong className="text-blue-400">uKnowva HRMS</strong>, a product-based company specializing in the HR domain. I'm recognized as "Star of the Year" in 2023 and "Star of the Department" at uknowva HRMS in 2024 for innovative solutions and sustained excellence.
+                  I’m Anirudh Vartak, a Full Stack Product Developer with 2.7+ years of experience building scalable and intelligent web systems. At uKnowva HRMS, I’ve been recognized as Star of the Year (2023) and Star of the Department (2024) for driving product innovation and core feature development.
                 </p>
                 <p className="mb-4">
-                  My professional journey includes spearheading the complete revamp of uknowva.com to enhance brand identity and user experience, and developing HR-tools.ai, integrating Chat GPT API to streamline HR processes like job recommendations and dynamic blog management. I leveraged expertise in Joomla3 (CMS), PHP, MySQL, and JavaScript to create dynamic, responsive, and mobile-friendly solutions, and optimized website performance for improved SEO rankings and user retention.
+                  I’ve built AI-powered prompt systems and dynamic form generators that use OpenAI to produce complete form layouts through JSON. I also developed a fully configurable speech-to-text module for real-time input and accessibility. My work spans modern, scalable UI features using PHP, MySQL, JavaScript, Joomla3, and Tabulator.js — often rewriting legacy logic into clean, reusable code.
                 </p>
                 <p className="mb-4">
-                  I also have prior experience in Supply Chain Management at TATA Steel Ltd.
+                  I developed the uKnowva AI Chatbot to handle core HR operations like applying leave, checking salary, and tracking attendance through natural language. I also helped automate reimbursements using OCR-based invoice scanning, streamlining HR workflows with smart, user-centric automation.
                 </p>
               </div>
             </div>
@@ -445,49 +457,49 @@ const App = () => {
               <div className={`${aboutMeCardBgClass} ${isAboutFeaturesVisible ? 'animate-fadeInLeft delay-100' : 'opacity-0'}`}>
                 <div className="flex items-center space-x-3">
                   <Cpu size={24} className={aboutMeIconColor} />
-                  <h3 className={`text-xl font-semibold ${aboutMeCardTextColor}`}>Full-Stack Development Mastery</h3>
+                  <h3 className={`text-xl font-semibold ${aboutMeCardTextColor}`}>AI-Powered Development</h3>
                 </div>
               </div>
               <div className={`${aboutMeCardBgClass} ${isAboutFeaturesVisible ? 'animate-fadeInRight delay-200' : 'opacity-0'}`}>
                 <div className="flex items-center space-x-3">
-                  <Award size={24} className={aboutMeIconColor} />
-                  <h3 className={`text-xl font-semibold ${aboutMeCardTextColor}`}>Award-Winning Innovation</h3>
+                  <Headphones size={24} className={aboutMeIconColor} /> {/* Changed icon to Headphones */}
+                  <h3 className={`text-xl font-semibold ${aboutMeCardTextColor}`}>Chatbot & Voice Tech Implementation</h3>
                 </div>
               </div>
               <div className={`${aboutMeCardBgClass} ${isAboutFeaturesVisible ? 'animate-fadeInLeft delay-300' : 'opacity-0'}`}>
                 <div className="flex items-center space-x-3">
-                  <Briefcase size={24} className={aboutMeIconColor} />
-                  <h3 className={`text-xl font-semibold ${aboutMeCardTextColor}`}>HR Tech Specialization</h3>
+                  <Activity size={24} className={aboutMeIconColor} /> {/* Changed icon to Activity */}
+                  <h3 className={`text-xl font-semibold ${aboutMeCardTextColor}`}>Automation & Workflow Systems</h3>
                 </div>
               </div>
               <div className={`${aboutMeCardBgClass} ${isAboutFeaturesVisible ? 'animate-fadeInRight delay-400' : 'opacity-0'}`}>
                 <div className="flex items-center space-x-3">
-                  <Zap size={24} className={aboutMeIconColor} />
-                  <h3 className={`text-xl font-semibold ${aboutMeCardTextColor}`}>API Integration & Optimization</h3>
+                  <Users size={24} className={aboutMeIconColor} /> {/* Changed icon to Users */}
+                  <h3 className={`text-xl font-semibold ${aboutMeCardTextColor}`}>HR Tech Domain Expertise</h3>
                 </div>
               </div>
               <div className={`${aboutMeCardBgClass} ${isAboutFeaturesVisible ? 'animate-fadeInLeft delay-500' : 'opacity-0'}`}>
                 <div className="flex items-center space-x-3">
-                  <Palette size={24} className={aboutMeIconColor} />
-                  <h3 className={`text-xl font-semibold ${aboutMeCardTextColor}`}>User-Centric UI/UX</h3>
+                  <Award size={24} className={aboutMeIconColor} /> {/* Changed icon to Award */}
+                  <h3 className={`text-xl font-semibold ${aboutMeCardTextColor}`}>Award-Winning Engineer</h3>
                 </div>
               </div>
               <div className={`${aboutMeCardBgClass} ${isAboutFeaturesVisible ? 'animate-fadeInRight delay-600' : 'opacity-0'}`}>
                 <div className="flex items-center space-x-3">
-                  <Server size={24} className={aboutMeIconColor} />
-                  <h3 className={`text-xl font-semibold ${aboutMeCardTextColor}`}>Robust Backend Solutions</h3>
+                  <Layout size={24} className={aboutMeIconColor} /> {/* Changed icon to Layout */}
+                  <h3 className={`text-xl font-semibold ${aboutMeCardTextColor}`}>Frontend Engineering Excellence</h3>
                 </div>
               </div>
               <div className={`${aboutMeCardBgClass} ${isAboutFeaturesVisible ? 'animate-fadeInLeft delay-700' : 'opacity-0'}`}>
                 <div className="flex items-center space-x-3">
-                  <ShieldCheck size={24} className={aboutMeIconColor} />
-                  <h3 className={`text-xl font-semibold ${aboutMeCardTextColor}`}>Quality Assurance & SDLC</h3>
+                  <Server size={24} className={aboutMeIconColor} /> {/* Changed icon to Server */}
+                  <h3 className={`text-xl font-semibold ${aboutMeCardTextColor}`}>Robust Backend Architecture</h3>
                 </div>
               </div>
               <div className={`${aboutMeCardBgClass} ${isAboutFeaturesVisible ? 'animate-fadeInRight delay-800' : 'opacity-0'}`}>
                 <div className="flex items-center space-x-3">
-                  <Handshake size={24} className={aboutMeIconColor} />
-                  <h3 className={`text-xl font-semibold ${aboutMeCardTextColor}`}>Collaborative & Adaptive</h3>
+                  <GitBranch size={24} className={aboutMeIconColor} /> {/* Changed icon to GitBranch */}
+                  <h3 className={`text-xl font-semibold ${aboutMeCardTextColor}`}>Seamless API Integration</h3>
                 </div>
               </div>
             </div>
